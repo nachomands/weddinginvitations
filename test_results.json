@@ -1,0 +1,31 @@
+{
+    "test_info": {
+        "date": "2025-04-16",
+        "total_players_reported": 20,
+        "captures_required": 1
+    },
+    "total_unique_names": 7,
+    "all_captures": [
+        {
+            "capture": "initial",
+            "names": [
+                "ZO",
+                "C-B",
+                "CA",
+                "CM",
+                "GZ",
+                "TOßÁ",
+                "NYOU COMPA'"
+            ]
+        }
+    ],
+    "unique_names_sorted": [
+        "C-B",
+        "CA",
+        "CM",
+        "GZ",
+        "NYOU COMPA'",
+        "TOßÁ",
+        "ZO"
+    ]
+}
