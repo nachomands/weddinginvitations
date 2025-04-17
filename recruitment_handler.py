@@ -3,16 +3,18 @@ import random
 from datetime import datetime, timedelta
 import pygetwindow as gw
 import pyautogui
-import json
 import numpy as np
 import easyocr
 from PIL import ImageGrab, Image
 
 
 class RecruitmentHandler:
-    def __init__(self, main_window):
+    def __init__(self, main_window, current_time="2025-04-16 23:53:40", current_user="nachomands"):
         self.main_window = main_window
         self.window_title = "Star Wars™: The Old Republic™"
+
+        # Initialize JsonHandler with current time and user
+        self.json_handler = JsonHandler(main_window, current_user, current_time)
 
         # Initialize EasyOCR with proven settings
         self.reader = easyocr.Reader(
@@ -35,7 +37,6 @@ class RecruitmentHandler:
         )
 
         self.init_regions()
-        self.load_dnd_lists()
         self.last_who = datetime.now() - timedelta(minutes=5)
         self.current_range = None
         self.names_to_invite = []
@@ -66,7 +67,7 @@ class RecruitmentHandler:
         )
         return np.array(screenshot)
 
-    def extract_names(self):
+    def extract_names(self, faction="ls"):
         """Extract player names from the WHO results using proven settings"""
         try:
             # Wait for WHO results to populate
@@ -114,9 +115,12 @@ class RecruitmentHandler:
                 self.main_window.log_console.log_message(f"Scroll {i + 1} names found: {new_names}", "blue")
                 names.update(new_names)
 
-            # Filter out names in DND list
-            valid_names = [name for name in names if not self.is_in_dnd(name)]
+            # Filter out names in DND list using JsonHandler
+            valid_names = [name for name in names if not self.json_handler.is_in_dnd(name, faction)]
             self.main_window.log_console.log_message(f"Total valid names found: {len(valid_names)}", "green")
+
+            # Update invite list with valid names
+            self.json_handler.update_invite_list(valid_names, faction)
 
             return sorted(valid_names)
 
