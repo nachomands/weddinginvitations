@@ -1,20 +1,3 @@
-initial file structure
-
-C:\Users\Chris\PycharmProjects\T1-R4NT\Emperor
-│
-├── inviter.py
-├── jsonhandler.py
-├── noafk.py
-├── reader.py
-├── ui.py
-│
-└── jsons
-    ├── lsinvites.json
-    ├── dsinvites.json
-    ├── lsdnd.json
-    ├── dsdnd.json
-
-
 
 
 Initial regions
